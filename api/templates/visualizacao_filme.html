@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -18,52 +17,128 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
       line-height:1.45;
     }
-    .container{max-width:1100px; margin: clamp(16px,4vw,40px) auto; padding: 0 16px;}
+
+    /* ↑ mais largura total e padding simétrico; mantém centralizado */
+    .container{
+      max-width:1280px;                  /* antes: 1100px */
+      margin: clamp(16px,4vw,40px) auto;
+      padding: 0 clamp(20px,5vw,48px);   /* mais “respiro” nas laterais */
+    }
 
     .topbar{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: clamp(16px,3vw,28px);}
     .topbar .back{display:inline-flex; align-items:center; gap:10px; background:transparent; border:1px solid #2a3550; color:var(--text); padding:10px 14px; border-radius:999px; cursor:pointer;}
     .topbar .back:hover{background:#0e1424}
     .topbar .brand{font-weight:700; letter-spacing:.3px; color:#c7d2fe; opacity:.85}
 
+    /* ===== LAYOUT EM 2 COLUNAS (main + aside) ===== */
+    .page{
+      display:grid;
+      grid-template-columns: minmax(0, 2fr) minmax(280px, 420px);
+      gap: clamp(16px, 3vw, 28px);
+      align-items: start;  /* alinha topo a topo */
+    }
+    @media (max-width:1100px){
+      .page{ grid-template-columns: 1fr; }
+    }
+    .sidebar{ position: relative; align-self: start; }
+    .sidebar-card{
+      position: sticky;
+      top: clamp(10px, 4vw, 24px);
+      background:#0f1524;
+      border:1px solid #1c2742;
+      border-radius: var(--radius);
+      padding: clamp(14px, 2.5vw, 22px);
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h2{ margin:0 0 12px 0; }
+
+    .comment-form{ display:flex; flex-direction:column; gap:12px; margin-bottom:14px; }
+    .comment-form .fld{ display:flex; flex-direction:column; gap:6px; }
+    .comment-form .k{ color:#a6b2c3; font-size:13px; }
+    .comment-form input[type="number"],
+    .comment-form textarea{
+      background:#0b1326; border:1px solid #223054; color:#e6edf3;
+      border-radius:10px; padding:10px 12px; resize: vertical;
+    }
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#1f2a48; border:1px solid #2a3550; color:#dbe7ff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:600;}
+    .btn:hover{background:#223055;}
+    .btn-primary{ background:#2b3a6a; }
+
+    .comments{ display:flex; flex-direction:column; gap:12px; max-height:70vh; overflow:auto; padding-right:4px; }
+    .comment{ background:#0c1223; border:1px solid #1a2544; border-radius:12px; padding:10px 12px; }
+    .c-head{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:6px; }
+    .author{ font-weight:600; }
+    .meta{ color:#8b98a5; font-size:12px; }
+    .c-body{ margin:0; color:#e9f0ff; overflow-wrap:break-word; word-break:normal; }
+    .empty{ color:#8b98a5; }
+
+    /* ====== CARD PRINCIPAL ====== */
     .hero{
-      display:grid; grid-template-columns: 320px 1fr; gap: clamp(16px,3vw,28px);
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap: clamp(16px,3vw,28px);
       background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 60%), var(--panel);
-      border-radius: var(--radius); padding: clamp(16px,3vw,28px); box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: clamp(18px,3.2vw,32px);
+      box-shadow: var(--shadow);
+      min-width: 0;                    /* permite encolher dentro da grid */
+      overflow:hidden;                 /* clipe conteúdo nas bordas arredondadas */
+      align-items: start;              /* <-- impede o pôster de esticar até a altura do conteúdo */
     }
     @media (max-width:880px){ .hero{grid-template-columns:1fr;} }
 
-    .poster{border-radius: calc(var(--radius) - 6px); overflow: hidden; background:#0f1524; min-height:420px; display:flex; align-items:center; justify-content:center; border:1px solid #1c2742;}
+    .poster{
+      border-radius: calc(var(--radius) - 6px);
+      overflow: hidden;
+      background:#0f1524;
+      /* antes tinha min-height grande. Agora controlamos por proporção */
+      aspect-ratio: 2 / 3;            /* 320x480 aprox. */
+      align-self: start;               /* garante que não estica verticalmente */
+      border:1px solid #1c2742;
+      max-height: 80vh;                /* segurança: não maior que a viewport */
+    }
     .poster img{width:100%; height:100%; object-fit:cover; display:block;}
     .poster--placeholder{color:var(--muted); font-size:14px; text-align:center; padding:24px;}
 
+    .details{ min-width: 0; } /* evita empurrar o aside por conteúdo largo */
     .details h1{margin:0 0 6px 0; font-size: clamp(22px,3.2vw,34px);}
-    .subtitle{color:var(--muted); font-size:14px; display:flex; gap:10px; flex-wrap:wrap;}
-    .chips{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 4px 0;}
+    .subtitle{color:#8b98a5; font-size:14px; display:flex; gap:10px; flex-wrap:wrap;}
+
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 4px 0; max-width:100%;}
     .chip{background:var(--chip); color:#c9d4e3; border:1px solid #263352; padding:6px 10px; border-radius:999px; font-size:12px;}
 
     .rating{display:flex; align-items:center; gap:10px; margin:10px 0 14px;}
     .rating .score{background:#0b1326; border:1px solid #223054; padding:8px 10px; border-radius:10px; font-weight:700;}
-    .rating small{color:var(--muted);}
+    .rating small{color:#8b98a5;}
 
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 8px;}
-    .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#1f2a48; border:1px solid #2a3550; color:#dbe7ff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:600;}
-    .btn:hover{background:#223055;}
 
-    .section{background:#0f1524; border:1px solid #1c2742; border-radius:var(--radius); padding:clamp(14px,2.5vw,22px); margin-top:clamp(14px,2.5vw,22px);}
+    .section{
+      background:#0f1524; border:1px solid #1c2742; border-radius: var(--radius);
+      padding:clamp(14px,2.5vw,22px); margin-top:clamp(14px,2.5vw,22px);
+      overflow-wrap:break-word; word-break:normal;  /* evita “uma letra por linha” */
+    }
     .section h2{margin:0 0 10px 0; font-size: clamp(18px,2.4vw,22px);}
-    .muted{color:var(--muted);}
+    .muted{color:#8b98a5;}
 
-    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+    /* colunas internas: garantimos largura mínima para não “espremê-las” */
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:16px;
+    }
     @media (max-width:700px){ .grid-2{grid-template-columns:1fr;} }
 
-    .kv{display:grid; grid-template-columns:140px 1fr; gap:8px; padding:6px 0;}
+    .kv{display:grid; grid-template-columns: 140px 1fr; gap:8px; padding:6px 0;}
+    @media (max-width:520px){ .kv{ grid-template-columns: 1fr; } } /* stacka label/valor no mobile */
     .kv .k{color:#a6b2c3;}
-    .kv .v{color:#e9f0ff;}
+    .kv .v{color:#e9f0ff; overflow-wrap:break-word; word-break:normal;}
 
     .footnote{color:#9aa6b6; font-size:12px; margin-top:10px;}
   </style>
 </head>
 <body>
+ 
   <div class="container">
 
     <div class="topbar">
@@ -71,132 +146,183 @@
       <div class="brand">Catálogo de filmes</div>
     </div>
 
-    <article class="hero">
-      <div class="poster">
-        {% if filme.poster_path %}
-          <img src="https://image.tmdb.org/t/p/w500{{ filme.poster_path }}" alt="Poster de {{ filme.title|default:filme.original_title }}">
-        {% else %}
-          <div class="poster--placeholder">Sem poster disponível</div>
-        {% endif %}
-      </div>
-
-      <div class="details">
-        <h1>
-          {{ filme.title|default:filme.original_title }}
-          {% if filme.release_date %}
-            <span class="muted">({{ filme.release_date|slice:":4" }})</span>
-          {% endif %}
-        </h1>
-
-        {% if filme.tagline %}
-          <p class="muted" style="margin:6px 0 10px 0;"><em>{{ filme.tagline }}</em></p>
-        {% endif %}
-
-        <div class="subtitle">
-          {% if filme.runtime %}<span>{{ filme.runtime }} min</span>{% endif %}
-          {% if filme.status %}<span>• {{ filme.status }}</span>{% endif %}
-          {% if filme.original_language %}<span>• Idioma original: {{ filme.original_language|upper }}</span>{% endif %}
-        </div>
-
-        <div class="chips">
-          {% if filme.genres %}
-            {% for g in filme.genres %}
-              <span class="chip">{{ g.name }}</span>
-            {% endfor %}
-          {% else %}
-            <span class="chip">Sem gênero</span>
-          {% endif %}
-        </div>
-
-        <div class="rating">
-          <span class="score">{{ filme.vote_average|default:0|floatformat:1 }}/10</span>
-          <small>{{ filme.vote_count|default:0 }} votos</small>
-        </div>
-
-        <div class="actions">
-          {% if filme.imdb_id %}
-            <a class="btn" target="_blank" rel="noopener" href="https://www.imdb.com/title/{{ filme.imdb_id }}/">IMDb</a>
-          {% endif %}
-          <a class="btn" target="_blank" rel="noopener" href="https://www.themoviedb.org/movie/{{ filme.id }}">TMDb</a>
-          {% if filme.homepage %}
-            <a class="btn" target="_blank" rel="noopener" href="{{ filme.homepage }}">Site oficial</a>
-          {% endif %}
-        </div>
-
-        <section class="section">
-          <h2>Sinopse</h2>
-          <p class="muted">{{ filme.overview|default:"Sem sinopse disponível para este título." }}</p>
-        </section>
-
-        <section class="section grid-2">
-          <div>
-            <h2>Detalhes</h2>
-            <div class="kv">
-              <div class="k">Título original</div>
-              <div class="v">{{ filme.original_title|default:"—" }}</div>
-            </div>
-            <div class="kv">
-              <div class="k">Lançamento</div>
-              <div class="v">{{ filme.release_date|default:"—" }}</div>
-            </div>
-            <div class="kv">
-              <div class="k">Países</div>
-              <div class="v">
-                {% if filme.production_countries %}
-                  {% for c in filme.production_countries %}
-                    <span class="chip">{{ c.name|default:c.iso_3166_1 }}</span>
-                  {% endfor %}
-                {% else %} — {% endif %}
-              </div>
-            </div>
-            <div class="kv">
-              <div class="k">Idiomas falados</div>
-              <div class="v">
-                {% if filme.spoken_languages %}
-                  {% for l in filme.spoken_languages %}
-                    <span class="chip">{{ l.english_name|default:l.name|default:l.iso_639_1|upper }}</span>
-                  {% endfor %}
-                {% else %} — {% endif %}
-              </div>
-            </div>
-            <div class="kv">
-              <div class="k">Orçamento</div>
-              <div class="v">
-                {% if filme.budget %}${{ filme.budget|floatformat:0 }}{% else %}—{% endif %}
-              </div>
-            </div>
-            <div class="kv">
-              <div class="k">Receita</div>
-              <div class="v">
-                {% if filme.revenue %}${{ filme.revenue|floatformat:0}}{% else %}—{% endif %}
-              </div>
-            </div>
+   
+    <div class="page">
+      <main class="main">
+       
+        <article class="hero">
+          <div class="poster">
+            {% if filme.poster_path %}
+              <img src="https://image.tmdb.org/t/p/w500{{ filme.poster_path }}" alt="Poster de {{ filme.title|default:filme.original_title }}">
+            {% else %}
+              <div class="poster--placeholder">Sem poster disponível</div>
+            {% endif %}
           </div>
 
-          <div>
-            <h2>Produtoras</h2>
-            <div>
-              {% if filme.production_companies %}
-                {% for pc in filme.production_companies %}
-                  <div class="kv">
-                    <div class="k">Nome</div>
-                    <div class="v">{{ pc.name }}</div>
-                  </div>
-                  <div class="kv">
-                    <div class="k">País</div>
-                    <div class="v">{{ pc.origin_country|default:"—" }}</div>
-                  </div>
+          <div class="details">
+            <h1>
+              {{ filme.title|default:filme.original_title }}
+              {% if filme.release_date %}
+                <span class="muted">({{ filme.release_date|slice:":4" }})</span>
+              {% endif %}
+            </h1>
+
+            {% if filme.tagline %}
+              <p class="muted" style="margin:6px 0 10px 0;"><em>{{ filme.tagline }}</em></p>
+            {% endif %}
+
+            <div class="subtitle">
+              {% if filme.runtime %}<span>{{ filme.runtime }} min</span>{% endif %}
+              {% if filme.status %}<span>• {{ filme.status }}</span>{% endif %}
+              {% if filme.original_language %}<span>• Idioma original: {{ filme.original_language|upper }}</span>{% endif %}
+            </div>
+
+            <div class="chips">
+              {% if filme.genres %}
+                {% for g in filme.genres %}
+                  <span class="chip">{{ g.name }}</span>
                 {% endfor %}
               {% else %}
-                <p class="muted">Sem informações de produtoras.</p>
+                <span class="chip">Sem gênero</span>
               {% endif %}
             </div>
+
+            <div class="rating">
+              <span class="score">{{ filme.vote_average|default:0|floatformat:1 }}/10</span>
+              <small>{{ filme.vote_count|default:0 }} votos</small>
+            </div>
+
+            <div class="actions">
+              {% if filme.imdb_id %}
+                <a class="btn" target="_blank" rel="noopener" href="https://www.imdb.com/title/{{ filme.imdb_id }}/">IMDb</a>
+              {% endif %}
+              <a class="btn" target="_blank" rel="noopener" href="https://www.themoviedb.org/movie/{{ filme.id }}">TMDb</a>
+              {% if filme.homepage %}
+                <a class="btn" target="_blank" rel="noopener" href="{{ filme.homepage }}">Site oficial</a>
+              {% endif %}
+            </div>
+
+            <section class="section">
+              <h2>Sinopse</h2>
+              <p class="muted">{{ filme.overview|default:"Sem sinopse disponível para este título." }}</p>
+            </section>
+
+            <section class="section grid-2">
+              <div>
+                <h2>Detalhes</h2>
+                <div class="kv">
+                  <div class="k">Título original</div>
+                  <div class="v">{{ filme.original_title|default:"—" }}</div>
+                </div>
+                <div class="kv">
+                  <div class="k">Lançamento</div>
+                  <div class="v">{{ filme.release_date|default:"—" }}</div>
+                </div>
+                <div class="kv">
+                  <div class="k">Países</div>
+                  <div class="v">
+                    {% if filme.production_countries %}
+                      {% for c in filme.production_countries %}
+                        <span class="chip">{{ c.name|default:c.iso_3166_1 }}</span>
+                      {% endfor %}
+                    {% else %} — {% endif %}
+                  </div>
+                </div>
+                <div class="kv">
+                  <div class="k">Idiomas falados</div>
+                  <div class="v">
+                    {% if filme.spoken_languages %}
+                      {% for l in filme.spoken_languages %}
+                        <span class="chip">{{ l.english_name|default:l.name|default:l.iso_639_1|upper }}</span>
+                      {% endfor %}
+                    {% else %} — {% endif %}
+                  </div>
+                </div>
+                <div class="kv">
+                  <div class="k">Orçamento</div>
+                  <div class="v">
+                    {% if filme.budget %}${{ filme.budget|floatformat:0 }}{% else %}—{% endif %}
+                  </div>
+                </div>
+                <div class="kv">
+                  <div class="k">Receita</div>
+                  <div class="v">
+                    {% if filme.revenue %}${{ filme.revenue|floatformat:0}}{% else %}—{% endif %}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h2>Produtoras</h2>
+                <div>
+                  {% if filme.production_companies %}
+                    {% for pc in filme.production_companies %}
+                      <div class="kv">
+                        <div class="k">Nome</div>
+                        <div class="v">{{ pc.name }}</div>
+                      </div>
+                      <div class="kv">
+                        <div class="k">País</div>
+                        <div class="v">{{ pc.origin_country|default:"—" }}</div>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <p class="muted">Sem informações de produtoras.</p>
+                  {% endif %}
+                </div>
+              </div>
+            </section>
+
+            <p class="footnote">Dados fornecidos por TMDb.</p>
+          </div>
+        </article>
+        <!-- FIM DO SEU BLOCO -->
+      </main>
+
+      <!-- PAINEL LATERAL -->
+      <aside class="sidebar">
+        <section class="sidebar-card">
+          <h2>Comentários</h2>
+
+          <form class="comment-form" method="POST" action="">
+            {% csrf_token %}
+            <label class="fld">
+              <span class="k">Nota</span>
+              <input type="number" name="nota" min="1" max="10" step="1" placeholder="1–10" required>
+            </label>
+
+            <label class="fld">
+              <span class="k">Comentário</span>
+              <textarea name="texto" rows="4" placeholder="Escreva seu comentário..." required></textarea>
+            </label>
+
+            <button class="btn btn-primary" type="submit">Publicar</button>
+          </form>
+
+          <div class="comments">
+            {% if comentarios %}
+              {% for c in comentarios %}
+                <article class="comment">
+                  <header class="c-head">
+                    <strong class="author">
+                      {% if c.autor_name %}{{ c.autor_name }}{% else %}Anônimo{% endif %}
+                    </strong>
+                    {% if c.nota %}<span class="meta">• {{ c.nota }}/10</span>{% endif %}
+                    {% if c.criado_em %}<time class="meta">{{ c.criado_em|date:"d/m/Y H:i" }}</time>{% endif %}
+                  </header>
+                  {% if c.texto %}<p class="c-body">{{ c.texto }}</p>{% endif %}
+                </article>
+              {% endfor %}
+            {% else %}
+              <p class="empty">Seja o primeiro a comentar.</p>
+            {% endif %}
           </div>
         </section>
+      </aside>
+      <!-- FIM PAINEL -->
+    </div>
+    <!-- FIM MAIN + ASIDE -->
 
-        <p class="footnote">Dados fornecidos por TMDb.</p>
-      </div>
-    </article>
   </div>
 </body>
 </html>

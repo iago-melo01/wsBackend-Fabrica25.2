@@ -6,28 +6,33 @@
     <title>Document</title>
     <style>
         body {
-        margin: 0; /* remove margens padrão */
+        margin: 0; 
         font-family: Arial, Helvetica, sans-serif;
+        
+        background:
+        radial-gradient(900px 420px at 20% -10%, rgba(79,140,255,.12), transparent 62%),
+    #0f1324;        
+        color:#e6edf3;     
     }
         .container {
-            display: flex;      /* coloca os itens lado a lado */
-            gap: 20px;          /* espaço horizontal entre os itens */
-            list-style: none;   /* remove as bolinhas */
+            display: flex;      
+            gap: 20px;          
+            list-style: none;   
             padding: 0;
         }
         .item {
-            text-align: center; /* centraliza título e imagem */
+            text-align: center;
         }
         .item h3 {
-            margin-bottom: 5px; /* aproxima o título da imagem */
+            margin-bottom: 5px;
             font-size: 16px;
         }
         .item img {
-            width: 200px;       /* controla tamanho */
+            width: 200px;       
             height: auto;
         }
         header {
-      background-color: #1e1e2f;   /* cor de fundo */
+      background-color: #1e1e2f;   
       color: white;                /* cor do texto */
       display: flex;               /* coloca logo e menu lado a lado */
       justify-content: space-between; /* separa logo à esquerda e menu à direita */
@@ -102,6 +107,59 @@
 .footer-right a:hover {
   color: gold;
 }
+
+.movie-link{
+  display:inline-block;
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  text-decoration:none;     /* sem sublinhado */
+  border:2px solid transparent;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  cursor:pointer;
+  background: rgba(255,255,255,.04); 
+
+  padding:6px; /* cria uma bordinha ao redor do poster */
+}
+.movie-link img{
+  display:block;
+  width:220px;              /* ajuste o tamanho */
+  aspect-ratio: 2 / 3;      /* mantém proporção pôster */
+  object-fit: cover;
+}
+
+/* Efeitos de interação */
+.movie-link:hover,
+.movie-link:focus{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  border-color: #4f8cff;    /* “glow” azul */
+}
+.movie-link:active{
+  transform: translateY(0) scale(.98);
+}
+.movie-link:focus-visible{
+  outline: 3px solid #8fb3ff;
+  outline-offset: 2px;
+}
+
+/* Badge/overlay opcional */
+.movie-link .badge{
+  position:absolute;
+  left:8px; right:8px; bottom:8px;
+  background: rgba(0,0,0,.55);
+  color:#e6edf3;
+  font-weight:600;
+  padding:6px 10px;
+  border-radius:10px;
+  text-align:center;
+  opacity:0;
+  transition: opacity .18s ease;
+  pointer-events:none;
+}
+.movie-link:hover .badge,
+.movie-link:focus .badge{ opacity:1; }
     </style>
 </head>
 <body>
@@ -115,13 +173,13 @@
     </nav>
   </header>
 
-
+  <h1>Exibindo resultados da sua pesquisa: {{ query }}</h1>
     <ul class="container">
         {% for resultado in resultados %}
         <li class="item">
             <h3>{{ resultado.title }}</h3>
             {% if resultado.poster_path %}
-                <a href="{% url 'visualizacao_filme' resultado.id %}"><button><img src="https://image.tmdb.org/t/p/w500{{ resultado.poster_path }}" alt="{{ resultado.title }}"></button></a>
+                <a class="movie-link" href="{% url 'visualizacao_filme' resultado.id %}"><button><img src="https://image.tmdb.org/t/p/w500{{ resultado.poster_path }}" alt="{{ resultado.title }}"></button></a>
             {% else %}
                 <p>Sem poster disponível</p>
             {% endif %}<!-- 
