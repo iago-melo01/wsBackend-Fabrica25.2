@@ -121,7 +121,7 @@
         <li class="item">
             <h3>{{ resultado.title }}</h3>
             {% if resultado.poster_path %}
-                <img src="https://image.tmdb.org/t/p/w500{{ resultado.poster_path }}" alt="{{ resultado.title }}">
+                <a href="{% url 'visualizacao_filme' resultado.id %}"><button><img src="https://image.tmdb.org/t/p/w500{{ resultado.poster_path }}" alt="{{ resultado.title }}"></button></a>
             {% else %}
                 <p>Sem poster disponível</p>
             {% endif %}<!-- 
