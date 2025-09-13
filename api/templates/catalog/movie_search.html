@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Buscar filmes · MovieCatalog{% endblock %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+<h1 class="h3 mb-0">Buscar filmes</h1>
+{% if q %}<span class="text-muted">Exibindo resultados para: <strong>{{ q }}</strong></span>{% endif %}
+</div>
+
+
+<form class="row gy-2 gx-2 mb-3" method="get" action="{% url 'home' %}">
+<div class="col-12 col-md-8">
+<input type="text" class="form-control" name="q" placeholder="Digite um título (ex.: Inception)" value="{{ q }}">
+</div>
+<div class="col-12 col-md-4 d-grid d-md-block">
+<button class="btn btn-primary w-100">Buscar</button>
+</div>
+</form>
+
+
+{% if results %}
+<div class="row g-3">
+{% for m in results %}
+<div class="col-6 col-md-3 col-lg-2">
+<div class="card h-100 shadow-sm movie-card">
+<a href="{% url 'movie_detail' imdb_id=m.imdb_id %}" class="text-decoration-none text-dark">
+{% if m.poster_url %}
+<img src="{{ m.poster_url }}" class="card-img-top object-fit-cover" alt="Poster de {{ m.title }}">
+{% else %}
+<div class="ratio ratio-2x3 bg-secondary-subtle d-flex align-items-center justify-content-center">Sem pôster</div>
+{% endif %}
+<div class="card-body p-2">
+<h2 class="h6 card-title mb-1 text-truncate" title="{{ m.title }}">{{ m.title }}</h2>
+<p class="card-text text-muted small mb-0">{{ m.year }}</p>
+</div>
+</a>
+</div>
+</div>
+{% endfor %}
+</div>
+{% elif q %}
+<div class="alert alert-warning">Nenhum resultado encontrado para “{{ q }}”.</div>
+{% else %}
+<div class="text-muted">Use a busca acima para encontrar filmes.</div>
+{% endif %}
+{% endblock %}
