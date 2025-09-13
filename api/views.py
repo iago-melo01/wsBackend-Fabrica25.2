@@ -5,6 +5,9 @@ from django import http
 import requests
 from .models import Movie
 
+def home_view(request):
+    return render(request, 'home.html')
+
 def buscar_filmes_view(request):
     pesquisa = request.GET.get("q") #query 
     page = int(request.GET.get("page", 1))
@@ -22,9 +25,6 @@ def buscar_filmes_view(request):
     resultados = dados.get("results")
     return render(request, 'resultados.html', {'resultados': resultados})
 
-def home_view(request):
-    return render(request, 'home.html')
-
 def visualizar_filme(request, movieId):
 
     
@@ -35,8 +35,7 @@ def visualizar_filme(request, movieId):
     url = f"https://api.themoviedb.org/3/movie/{movieId}"
 
     params = {
-        "api_key": 'a909fa9b7f3a8af856687641b53cde62',   # V3 → na query string
-        #"external_source": 'imdb_id',
+        "api_key": 'a909fa9b7f3a8af856687641b53cde62',   
         "language": 'pt-BR',
     }
 
