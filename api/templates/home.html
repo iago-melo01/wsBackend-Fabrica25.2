@@ -1,125 +1,229 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catálogo de Filmes — Início</title>
   <style>
-    :root{
-      --bg:#1e1e2f;   /* cor do header/footer */
-      --fg:#ffffff;   /* texto */
-      --accent:gold;  /* hover */
+    :root {
+      --bg: #1e1e2f;
+      --fg: #ffffff;
+      --accent: gold;
     }
-    /* Layout base */
-    *{box-sizing:border-box}
-    body{
-      margin:0;
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background:#f5f6f8;
-      color:#111;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
+      background: #f5f6f8;
+      color: #111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* HEADER */
-    header{
-      background:var(--bg);
-      color:var(--fg);
-      display:flex;
-      align-items:center;
-      gap:24px;
-      padding:14px 40px;
-      position:sticky; top:0; z-index:1000;
-      box-shadow:0 2px 5px rgba(0,0,0,.3);
-    }
-    .brand{
-      margin:0; font-size:22px; font-weight:800; letter-spacing:.3px;
-    }
-    nav{ margin-left:auto; display:flex; align-items:center; gap:24px; }
-    nav a{
-      color:var(--fg); text-decoration:none; font-weight:700; transition:color .25s;
-    }
-    nav a:hover{ color:var(--accent); }
 
-    /* Search na barra */
-    .search{
-      display:flex; align-items:center; gap:8px;
-      background:#2a2a40; padding:6px 10px; border-radius:999px;
-    }
-    .search input{
-      border:none; outline:none; background:transparent; color:var(--fg);
-      width:220px; font-size:14px;
-    }
-    .search button{
-      border:none; background:var(--accent); color:#1a1a1a;
-      font-weight:800; padding:6px 12px; border-radius:999px; cursor:pointer;
-    }
-    .search button:hover{ filter:brightness(0.95); }
-
-    /* HERO */
-    .hero{
-      padding:48px 40px 16px;
-      display:grid; grid-template-columns: 1.2fr 1fr; gap:28px;
-      align-items:center;
-    }
-    .hero h2{ margin:0 0 10px; font-size:34px; }
-    .hero p{ margin:0; color:#444; line-height:1.5 }
-    .hero-card{
-      background:#fff; border-radius:16px; padding:20px;
-      box-shadow:0 6px 20px rgba(0,0,0,.08);
+    header {
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 14px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
     }
 
-    /* Seções */
-    .section{ padding:16px 40px 40px; }
-    .grid{
-      display:grid; gap:18px;
+    .brand {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+
+    nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    nav a {
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color .25s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #2a2a40;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--fg);
+      width: 220px;
+      font-size: 14px;
+    }
+
+    .search button {
+      border: none;
+      background: var(--accent);
+      color: #1a1a1a;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .search button:hover {
+      filter: brightness(0.95);
+    }
+
+
+    .hero {
+      padding: 48px 40px 16px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero h2 {
+      margin: 0 0 10px;
+      font-size: 34px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #444;
+      line-height: 1.5
+    }
+
+    .hero-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+    }
+
+
+    .section {
+      padding: 16px 40px 40px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     }
-    .tile{
-      background:#fff; border-radius:16px; padding:16px;
-      box-shadow:0 4px 14px rgba(0,0,0,.07);
-    }
-    .tile h3{ margin:0 0 6px; font-size:16px }
-    .tile p{ margin:0; color:#555; font-size:14px }
 
-    /* FOOTER */
-    footer{
-      margin-top:auto;
-      background:var(--bg); color:var(--fg);
-      display:flex; justify-content:space-between; align-items:center;
-      padding:15px 40px; box-shadow:0 -2px 5px rgba(0,0,0,.3);
-      font-weight:700;
+    .tile {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .07);
     }
-    footer a{ color:var(--fg); text-decoration:none; margin-left:18px }
-    footer a:hover{ color:var(--accent) }
 
-    /* Responsivo */
-    @media (max-width: 860px){
-      nav{ gap:14px }
-      .search input{ width:160px }
-      .hero{ grid-template-columns:1fr; }
+    .tile h3 {
+      margin: 0 0 6px;
+      font-size: 16px
     }
-    @media (max-width: 520px){
-      header{ padding:12px 16px }
-      .brand{ font-size:18px }
-      .search input{ width:120px }
-      .section{ padding:16px }
+
+    .tile p {
+      margin: 0;
+      color: #555;
+      font-size: 14px
+    }
+
+
+    footer {
+      margin-top: auto;
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, .3);
+      font-weight: 700;
+    }
+
+    footer a {
+      color: var(--fg);
+      text-decoration: none;
+      margin-left: 18px
+    }
+
+    footer a:hover {
+      color: var(--accent)
+    }
+
+
+    @media (max-width: 860px) {
+      nav {
+        gap: 14px
+      }
+
+      .search input {
+        width: 160px
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding: 12px 16px
+      }
+
+      .brand {
+        font-size: 18px
+      }
+
+      .search input {
+        width: 120px
+      }
+
+      .section {
+        padding: 16px
+      }
     }
   </style>
 </head>
+
 <body>
 
   <header>
     <h1 class="brand">Catálogo de Filmes</h1>
 
-    <!-- links do menu (opcionais) -->
+
     <nav>
       <a href="{% url 'home' %}">Início</a>
       <a href="#">Sobre</a>
       <a href="#">Contato</a>
 
-      <!-- Barra de pesquisa no header -->
+
       <form class="search" action="{% url 'buscar_filmes' %}" method="GET">
         <input type="text" name="q" placeholder="Busque por título..." aria-label="Buscar filmes" required>
         <button type="submit">Buscar</button>
@@ -127,11 +231,12 @@
     </nav>
   </header>
 
-  <!-- HERO -->
+
   <section class="hero">
     <div>
       <h2>Encontre seu próximo filme</h2>
-      <p>Pesquise por títulos, navegue por destaques e descubra novidades. Use a barra de busca no topo para começar.</p>
+      <p>Pesquise por títulos, navegue por destaques e descubra novidades. Use a barra de busca no topo para começar.
+      </p>
     </div>
     <div class="hero-card">
       <strong>Dica:</strong>
@@ -139,20 +244,20 @@
     </div>
   </section>
 
-  <!-- Destaques (placeholders) -->
+
   <section class="section">
     <h3>Destaques</h3>
     <div class="grid">
       <article class="tile">
-        <h3>Lançamentos</h3>
+        <h3>Filmes avaliados</h3>
         <p>Veja o que acabou de chegar.</p>
       </article>
       <article class="tile">
-        <h3>Populares</h3>
+        <h3>Atualizar Lista</h3>
         <p>Os mais buscados da semana.</p>
       </article>
       <article class="tile">
-        <h3>Clássicos</h3>
+        <h3>Deletar Lista</h3>
         <p>Filmes que marcaram época.</p>
       </article>
       <article class="tile">
@@ -172,4 +277,5 @@
   </footer>
 
 </body>
+
 </html>

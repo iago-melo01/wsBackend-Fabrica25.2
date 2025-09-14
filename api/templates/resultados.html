@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-        margin: 0; 
-        font-family: Arial, Helvetica, sans-serif;
-        
-        background:
-        radial-gradient(900px 420px at 20% -10%, rgba(79,140,255,.12), transparent 62%),
-    #0f1324;        
-        color:#e6edf3;     
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+
+      background:
+        radial-gradient(900px 420px at 20% -10%, rgba(79, 140, 255, .12), transparent 62%),
+        #0f1324;
+      color: #e6edf3;
     }
-        .container {
-            display: flex;      
-            gap: 20px;          
-            list-style: none;   
-            padding: 0;
-        }
-        .item {
-            text-align: center;
-        }
-        .item h3 {
-            margin-bottom: 5px;
-            font-size: 16px;
-        }
-        .item img {
-            width: 200px;       
-            height: auto;
-        }
-        header {
-      background-color: #1e1e2f;   
-      color: white;                /* cor do texto */
-      display: flex;               /* coloca logo e menu lado a lado */
-      justify-content: space-between; /* separa logo à esquerda e menu à direita */
-      align-items: center;         /* centraliza verticalmente */
-      padding: 15px 40px;          /* espaço interno */
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* sombra leve */
-      position: sticky;            /* header fixo no topo */
+
+    .container {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .item {
+      text-align: center;
+    }
+
+    .item h3 {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .item img {
+      width: 200px;
+      height: auto;
+    }
+
+    header {
+      background-color: #1e1e2f;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      position: sticky;
       top: 0;
       z-index: 1000;
     }
@@ -66,105 +72,116 @@
     }
 
     nav a:hover {
-      color: gold; /* muda cor ao passar o mouse */
+      color: gold;
     }
+
     footer {
-  background-color: #1e1e2f;
-  color: white;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
-  font-weight: bold;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;              /* largura da janela, não do conteúdo */
-}
+      background-color: #1e1e2f;
+      color: white;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+    }
 
-.footer-inner {
-  box-sizing: border-box;
-  width: 100%;               /* conteúdo limitado à viewport */
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .footer-inner {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.footer-left p {
-  margin: 0;
-  font-size: 14px;
-}
+    .footer-left p {
+      margin: 0;
+      font-size: 14px;
+    }
 
-.footer-right {
-  display: flex;
-  gap: 20px;
-}
+    .footer-right {
+      display: flex;
+      gap: 20px;
+    }
 
-.footer-right a {
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s;
-}
+    .footer-right a {
+      text-decoration: none;
+      color: white;
+      transition: color 0.3s;
+    }
 
-.footer-right a:hover {
-  color: gold;
-}
+    .footer-right a:hover {
+      color: gold;
+    }
 
-.movie-link{
-  display:inline-block;
-  position:relative;
-  border-radius:14px;
-  overflow:hidden;
-  text-decoration:none;     /* sem sublinhado */
-  border:2px solid transparent;
-  box-shadow: 0 6px 16px rgba(0,0,0,.25);
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  cursor:pointer;
-  background: rgba(255,255,255,.04); 
+    .movie-link {
+      display: inline-block;
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      text-decoration: none;
+      border: 2px solid transparent;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      cursor: pointer;
+      background: rgba(255, 255, 255, .04);
 
-  padding:6px; /* cria uma bordinha ao redor do poster */
-}
-.movie-link img{
-  display:block;
-  width:220px;              /* ajuste o tamanho */
-  aspect-ratio: 2 / 3;      /* mantém proporção pôster */
-  object-fit: cover;
-}
+      padding: 6px;
+    }
 
-/* Efeitos de interação */
-.movie-link:hover,
-.movie-link:focus{
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0,0,0,.35);
-  border-color: #4f8cff;    /* “glow” azul */
-}
-.movie-link:active{
-  transform: translateY(0) scale(.98);
-}
-.movie-link:focus-visible{
-  outline: 3px solid #8fb3ff;
-  outline-offset: 2px;
-}
+    .movie-link img {
+      display: block;
+      width: 220px;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+    }
 
-/* Badge/overlay opcional */
-.movie-link .badge{
-  position:absolute;
-  left:8px; right:8px; bottom:8px;
-  background: rgba(0,0,0,.55);
-  color:#e6edf3;
-  font-weight:600;
-  padding:6px 10px;
-  border-radius:10px;
-  text-align:center;
-  opacity:0;
-  transition: opacity .18s ease;
-  pointer-events:none;
-}
-.movie-link:hover .badge,
-.movie-link:focus .badge{ opacity:1; }
-    </style>
+
+    .movie-link:hover,
+    .movie-link:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+      border-color: #4f8cff;
+      /* “glow” azul */
+    }
+
+    .movie-link:active {
+      transform: translateY(0) scale(.98);
+    }
+
+    .movie-link:focus-visible {
+      outline: 3px solid #8fb3ff;
+      outline-offset: 2px;
+    }
+
+    /* Badge/overlay opcional */
+    .movie-link .badge {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      background: rgba(0, 0, 0, .55);
+      color: #e6edf3;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity .18s ease;
+      pointer-events: none;
+    }
+
+    .movie-link:hover .badge,
+    .movie-link:focus .badge {
+      opacity: 1;
+    }
+  </style>
 </head>
+
 <body>
 
-    <header>
+  <header>
     <h1>Catálogo de Filmes</h1>
     <nav>
       <a href="{% url 'home' %}">Início</a>
@@ -174,34 +191,35 @@
   </header>
 
   <h1>Exibindo resultados da sua pesquisa: {{ query }}</h1>
-    <ul class="container">
-        {% for resultado in resultados %}
-        <li class="item">
-            <h3>{{ resultado.title }}</h3>
-            {% if resultado.poster_path %}
-                <a class="movie-link" href="{% url 'visualizacao_filme' resultado.id %}"><button><img src="https://image.tmdb.org/t/p/w500{{ resultado.poster_path }}" alt="{{ resultado.title }}"></button></a>
-            {% else %}
-                <p>Sem poster disponível</p>
-            {% endif %}<!-- 
+  <ul class="container">
+    {% for resultado in resultados %}
+    <li class="item">
+      <h3>{{ resultado.title }}</h3>
+      {% if resultado.poster_path %}
+      <a class="movie-link" href="{% url 'visualizacao_filme' resultado.id %}"><button><img
+            src="https://image.tmdb.org/t/p/w500{{ resultado.poster_path }}" alt="{{ resultado.title }}"></button></a>
+      {% else %}
+      <p>Sem poster disponível</p>
+      {% endif %}<!-- 
             <p>{{ resultado.Year }}</p>
             <p>{{ resultado.imdbID }}</p>
             <p>{{ resultado.Type }}</p>
             -->
-        </li>
-        {% endfor %}
-    </ul>
-    <footer>
+    </li>
+    {% endfor %}
+  </ul>
   <footer>
-  <div class="footer-inner"> 
-    <div class="footer-left">
-      <p>&copy; 2025 Catálogo de Filmes</p>
-    </div>
-    <div class="footer-right">
-      <a href="#">Política de Privacidade</a>
-      <a href="#">Termos de Uso</a>
-    </div>
-  </div>
-</footer>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-left">
+          <p>&copy; 2025 Catálogo de Filmes</p>
+        </div>
+        <div class="footer-right">
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+        </div>
+      </div>
+    </footer>
 
 </body>
 
