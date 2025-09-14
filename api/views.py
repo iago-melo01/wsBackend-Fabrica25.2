@@ -35,8 +35,11 @@ def buscar_filmes_view(request):
     return render(request, 'resultados.html', {'resultados': resultados, 'query': pesquisa})
 
 def visualizar_filme(request, movieId):
-
-    filme = get_object_or_404(FilmeAvaliado, imdbID=movieId)
+    filme = None
+    try:
+        filme = get_object_or_404(FilmeAvaliado, imdbID=movieId)
+    except http.Http404:
+        print("Não lançando exceção para não lançar page 404")
     comentarios = (Avaliacao.objects.filter(filme=filme))
 
     if not movieId: #se movieId nao for passado, retornar HttpBadRequest
