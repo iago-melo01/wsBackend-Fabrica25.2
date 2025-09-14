@@ -46,11 +46,14 @@ venv\Scripts\activate     # Windows
 
 pip install -r requirements.txt
 
-4.Configure o arquivo .env na raiz do projeto:
+4.Crie um arquivo denominado de .env na raiz do projeto:
 TMDB_API_KEY=sua_chave_aqui
 
-// Faça isso alterando o valor (sua_chave_aqui) para o respectivo valor da sua api key gerada no site abaixo
-https://developer.themoviedb.org/reference/intro/getting-started
+// Faça Login no site e gere uma api key no link abaixo
+https://www.themoviedb.org/settings/api
+
+//Após isso, configure sua apikey no .env, alterando o valor (sua_chave_aqui) para o respectivo valor da sua api key gerada no site abaixo
+
 
 
 5.Execute as migrações:
